@@ -2,3 +2,4 @@ uvicorn[standard]
 discord.py
 requests
 dotenv
+rcon
