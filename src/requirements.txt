@@ -1,0 +1,4 @@
+uvicorn[standard]
+discord.py
+requests
+dotenv
