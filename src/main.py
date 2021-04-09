@@ -1,13 +1,21 @@
 import datetime
-import dotenv
 import sys
 import os 
 import json
 import discord
 import requests
-from discord.ext import commands
 import time
+from discord.ext import commands
+from dotenv import load_dotenv
 
+
+#Startup functions
+load_dotenv()
+# Variables 
+TOKEN = os.getenv('DISCORD_TOKEN')
+ 
+
+# Bot Related Code 
 bot = commands.Bot(command_prefix='!')
 bot.remove_command("help")
 
@@ -20,5 +28,6 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=activity)
 
 
-bot.run('')
+bot.run(f'{TOKEN}')
+
 

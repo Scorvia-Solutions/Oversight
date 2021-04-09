@@ -1,5 +1,5 @@
 uvicorn[standard]
 discord.py
 requests
-dotenv
+python-dotenv
 rcon
