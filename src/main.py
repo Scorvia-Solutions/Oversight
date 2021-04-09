@@ -5,6 +5,8 @@ import json
 import discord
 import requests
 import time
+import asyncio
+import yaml
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -13,6 +15,10 @@ from dotenv import load_dotenv
 load_dotenv()
 # Variables 
 TOKEN = os.getenv('DISCORD_TOKEN')
+FILEPATH = os.getcwd()
+#Load Config File
+with open(f'{FILEPATH}/src/config.yml') as file: 
+    config = yaml.full_load(file)
  
 
 # Bot Related Code 
@@ -27,6 +33,10 @@ async def on_ready():
     activity = discord.Game(name="Oversight v0.1", type=3)
     await bot.change_presence(status=discord.Status.online, activity=activity)
 
+# Register command 
+@bot.command()
+async def form(ctx):
+    await ctx.send(config)
 
 bot.run(f'{TOKEN}')
 
