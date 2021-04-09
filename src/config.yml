@@ -1,13 +1,11 @@
 questions:
-  one: How did you hear about our server?
-  two: How active would you be on our server?
-  three: What do you like to do most in Minecraft?
-  four: If accepted, do you agree not to break any of our server rules both Discord and ingame? This includes the Discord and Mojang TOS
-  five: What is your IGN or In Game Name?
+  - How did you hear about our server?
+  - How active would you be on our server?
+  - What do you like to do most in Minecraft?
+  - If accepted, do you agree not to break any of our server rules both Discord and ingame? This includes the Discord and Mojang TOS
+  - What is your IGN or In Game Name?
 responses:
   accepted: Congrats! You have been accepted into our server. You have been whitelisted
   pending: Thank you for your interest in our server! Your application is pending
   rejected: Sorry but you've been rejected. Please contact the moderation team for any questions
   error: An error has occured in your application process. Please contact the moderation team for more information!
-settings: 
-  logging: false
