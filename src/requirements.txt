@@ -3,3 +3,4 @@ discord.py
 requests
 python-dotenv
 rcon
+asyncio
