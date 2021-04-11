@@ -33,7 +33,6 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=game)
 
 
-# Register command(Will be removed)
 @bot.command()
 async def apply(ctx):
     answers = []
@@ -59,4 +58,3 @@ async def dm(user, msg=None):
     await user.send(msg)
 
 bot.run(f'{TOKEN}')
-NEW
