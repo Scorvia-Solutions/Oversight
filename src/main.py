@@ -38,31 +38,28 @@ async def on_ready():
 async def apply(ctx):
     answers = []
     user = ctx.author
+    #channel = ctx.
 
-    @commands.dm_only()
     def check(m):
-            return  user == m.author and channel == m.channel # this also doesn't work rn
+        return m.author == user and not m.guild 
 
     for idx, question in enumerate(config["questions"]):
-        # await dm(user, msg=f"Question #{idx + 1}: {question}")
-        await user.send(f"Question #{idx + 1}: {question}")
-        response = await bot.wait_for('message', check=check) # this doesn't work rn
+        await dm(user, msg=f"Question #{idx + 1}: {question}")
+        response = await bot.wait_for('message', check=check)
         answers.append(response.content)
-
-@bot.command()
-async def info(ctx):
-    await ctx.send(ctx)
 
     
 # @client.event
 # asnyc def on_message(message):
 #     return await client.wait_for('message', check=check)
 
-
+@bot.command()
+async def info(ctx):
+    await ctx.send(type.ctx.channel.type)
+    
 async def dm(user, msg=None):
     msg = msg or "Error, message was empty."
     await user.send(msg)
 
 bot.run(f'{TOKEN}')
-
-
+NEW
