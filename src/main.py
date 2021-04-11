@@ -48,10 +48,7 @@ async def apply(ctx):
         response = await bot.wait_for('message', check=check)
         answers.append(response.content)
 
-    
-# @client.event
-# asnyc def on_message(message):
-#     return await client.wait_for('message', check=check)
+
 
 @bot.command()
 async def info(ctx):
