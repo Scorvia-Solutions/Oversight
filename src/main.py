@@ -71,5 +71,13 @@ async def embed(ctx):
     embed.add_field(name="Question #4", value="This would be Response #4", inline=False)
     await ctx.send(embed=embed)
 
-    
+@bot.command()
+async def question(ctx):
+    embed=discord.Embed(color=0xFF5733)
+    embed.set_author(name="Oversight", icon_url="https://cdn.discordapp.com/attachments/797513405719117834/830220000601178162/oversight.png")
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/797513405719117834/830220000601178162/oversight.png")
+    embed.add_field(name="Question #1", value="How did you hear about our server?", inline=False)
+    embed.set_footer(text="Please make sure to answer the question as best you can!")
+    await ctx.send(embed=embed)
+
 bot.run(f'{TOKEN}')
