@@ -48,6 +48,14 @@ async def apply(ctx):
         answers.append(response.content)
 
     
+    embed=discord.Embed(title="Oversight", color=0xFF5733)
+    for (idx, question), answer in zip(enumerate(config["questions"]), answers): 
+        embed.add_field(name=f"Question #{idx + 1}: {question}", value=f"Response #{idx + 1}: {answer}", inline=False)
+    embed.set_footer(text="Please check to make sure your responses are what you want")
+    await user.send(embed=embed)    
+
+
+    
 async def dm(user, msg=None):
     msg = msg or "Error, message was empty."
     await user.send(msg) 
