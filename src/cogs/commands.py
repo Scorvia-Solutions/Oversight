@@ -3,6 +3,7 @@ import os, json, discord, yaml
 
 from discord.ext import commands
 from utils import default
+from utils.objects import Embed
 #endregion
 
 class Commands(commands.Cog):
@@ -23,19 +24,19 @@ class Commands(commands.Cog):
             return m.author == user and not m.guild 
 
         for idx, question in enumerate(self.content['questions']):
-            await self.dm(user, msg=f"Question #{idx + 1}: {question}")
+            await self.dm(user, msg=f'__#{idx + 1}: {question}__')
             response = await self.bot.wait_for('message', check=check)
             answers.append(response.content)
 
         
-        embed=discord.Embed(title="Oversight", color=0xFF5733)
+        embed=Embed(bot=self.bot, title='Oversight', color=0xFF5733)
         for (idx, question), answer in zip(enumerate(self.content['questions']), answers): 
-            embed.add_field(name=f"Question #{idx + 1}: {question}", value=f"Response #{idx + 1}: {answer}", inline=False)
-        embed.set_footer(text="Please check to make sure your responses are what you want")
+            embed.add_field(name=f'__#{idx + 1}: {question}__', value=f'*{answer}*', inline=False)
+        embed.set_footer(text='Are these answers correct **(y/n)**?')
         await user.send(embed=embed)    
 
     async def dm(self, user, msg=None):
-        msg = msg or "Error, message was empty."
+        msg = msg or 'Error, message was empty.'
         await user.send(msg) 
 
 def setup(bot):

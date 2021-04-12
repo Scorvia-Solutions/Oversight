@@ -1,14 +1,9 @@
 #region Imports
-import json
+import json, pytz
 
-from collections import namedtuple
+from datetime import datetime
 #endregion
 
-def get_json(file):
-    try:
-        with open(file, encoding='utf8') as data:
-            return json.load(data, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
-    except AttributeError:
-        raise AttributeError("Unknown argument")
-    except FileNotFoundError:
-        raise FileNotFoundError("JSON file wasn't found")
+def get_timestamp():
+    timezone = pytz.timezone('America/New_York')
+    return timezone.localize(datetime.now())

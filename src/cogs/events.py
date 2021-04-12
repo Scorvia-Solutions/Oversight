@@ -13,9 +13,9 @@ class Events(commands.Cog):
     """  """
     @commands.Cog.listener()
     async def on_ready(self):
-        print("\nSucessfully started and logged in.\n")
+        print('\nSucessfully started and logged in.\n')
 
-        game = discord.Game("Oversight v0.1")
+        game = discord.Game('Oversight v0.1')
         await self.bot.change_presence(status=discord.Status.online, activity=game)
 
     """ Generic error handler, will be changed later. """
