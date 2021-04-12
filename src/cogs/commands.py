@@ -1,5 +1,5 @@
 #region Imports
-import os, json, discord, yaml
+import os, json, discord, yaml, dotenv
 
 from discord.ext import commands
 from utils import default
@@ -17,24 +17,36 @@ class Commands(commands.Cog):
     """ Starts the application process for a given user. """
     @commands.command(name='apply')
     async def apply(self, ctx):
-        answers = []
-        user = ctx.author
+        satisfied = False
+        while not satisfied:
+            response, answers = await self.ask_questions(ctx)
+            satisfied = response
 
-        def check(m):
-            return m.author == user and not m.guild 
+        await ctx.author.message('Your application is being processed, please be patient.')
+        await self.send_to_applications(ctx.author, answers)
+
+    async def send_to_applications(self, user, answers):
+        pass
+        
+    """ Asks the user the questions in content.yml through thier direct messages, returns if they like their answers, and an array containing their answers. """
+    async def ask_questions(self, ctx):
+        answers = []
 
         for idx, question in enumerate(self.content['questions']):
-            await self.dm(user, msg=f'__#{idx + 1}: {question}__')
-            response = await self.bot.wait_for('message', check=check)
+            await self.dm(ctx.author, msg=f'__#{idx + 1}: {question}__')
+            response = await self.bot.wait_for('message', check=lambda m: m.author == ctx.author and not m.guild)
             answers.append(response.content)
 
-        
         embed=Embed(bot=self.bot, title='Oversight', color=0xFF5733)
         for (idx, question), answer in zip(enumerate(self.content['questions']), answers): 
-            embed.add_field(name=f'__#{idx + 1}: {question}__', value=f'*{answer}*', inline=False)
-        embed.set_footer(text='Are these answers correct **(y/n)**?')
-        await user.send(embed=embed)    
+            embed.add_field(name=f'#{idx + 1}: {question}', value=f'*{answer}*', inline=False)
+        
+        await ctx.author.send(embed=embed)   
+        await ctx.author.send(f'Are these answers correct? **(y/n)**')
 
+        return (await self.bot.wait_for('message', check=lambda m: m.author == ctx.author and not m.guild and (m.content == 'y' or m.content =='n')), answers)
+
+    """ Sends the message as a direct message to the user. """
     async def dm(self, user, msg=None):
         msg = msg or 'Error, message was empty.'
         await user.send(msg) 
