@@ -20,5 +20,5 @@ class Embed(discord.Embed):
     def __init__(self, bot, **kwargs):
         super().__init__(**kwargs)
 
-        self.set_footer(text=f'Support: WarpWing#XXXX', icon_url=bot.user.avatar_url_as(size=1024))
+        self.set_footer(text=f'Support: WarpWing#3866', icon_url=bot.user.avatar_url_as(size=1024))
         self.timestamp = default.get_timestamp()
