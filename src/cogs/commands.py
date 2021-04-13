@@ -57,7 +57,7 @@ class Commands(commands.Cog):
 
         """ Sends the user's application to the application channel. """
         # Reuse previous embed
-        answerEmbed.title = f'{ctx.author}\'s Application'
+        answer_embed.title = f'{ctx.author}\'s Application'
         application_channel = get(ctx.guild.channels, name=self.application_channel)
         
         application = await application_channel.send(embed=answer_embed)
