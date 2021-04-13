@@ -72,7 +72,7 @@ class Commands(commands.Cog):
             user = answers[4]
             client = Client(self.server_ip, self.server_port, self.rcon_password)
             await client.connect()
-            await client.send_cmd(f"whitelist {user}")
+            await client.send_cmd(f'whitelist {user}')
             await client.close()
         else:
             """ Application rejected, ? """
