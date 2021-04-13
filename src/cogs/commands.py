@@ -1,5 +1,6 @@
 #region Imports
-import os, json, discord, yaml, dotenv
+import os, json, discord, yaml, dotenv, asyncio
+from aiomcrcon import Client
 
 from discord.ext import commands
 from discord.utils import get
@@ -14,6 +15,9 @@ class Commands(commands.Cog):
 
         dotenv.load_dotenv()
         self.application_channel = os.getenv('APPLICATION_CHANNEL')
+        self.serverip = os.getenv('SERVER_IP')
+        self.serverport = os.getenv('SERVER_PORT')
+        self.rconpass = os.getenv('RCON_PASSWORD')
 
         with open(f'{os.getcwd()}/src/content.yml') as f:
             self.content = yaml.full_load(f)
@@ -57,13 +61,18 @@ class Commands(commands.Cog):
         accepted = True if reaction.emoji == '\u2705' else False
 
         if accepted:
-            """ Application accepted, add to whitelist. """
-
             await ctx.author.send(self.content['responses']['accepted'])
+            user = answers[4]
+            client = Client(self.serverip, self.serverport, self.rconpass)
+            await client.connect()
+            await client.send_cmd(f"whitelist {user}")
+            await client.close()
         else:
             """ Application rejected, ? """
 
-            await ctx.author.send(self.content['responses']['rejected'])
+            await ctx.author.send(self.content['responses']['rejected']) 
+
+        
 
 
 
