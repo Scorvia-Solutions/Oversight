@@ -69,7 +69,7 @@ class Commands(commands.Cog):
 
         if accepted:
             await ctx.author.send(self.content['responses']['accepted'])
-            user = answers[4]
+            user = answers[-1]
             client = Client(self.server_ip, self.server_port, self.rcon_password)
             await client.connect()
             await client.send_cmd(f'whitelist {user}')
