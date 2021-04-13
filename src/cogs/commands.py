@@ -27,6 +27,9 @@ class Commands(commands.Cog):
     async def apply(self, ctx):
         satisfied = False
 
+        if not ctx.guild:
+            return # create a better method to notify user that the command must be invoked in a server, not dm, or make commands only function in servers
+
         """ Asks the user the questions in content.yml through their direct messages, and allows them to re-answer until satisfaction """
         while not satisfied:
             answers = []
