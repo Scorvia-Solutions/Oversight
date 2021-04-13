@@ -32,15 +32,19 @@ class Commands(commands.Cog):
             answers = []
 
             for idx, question in enumerate(self.content['questions']):
-                await ctx.author.send(f'__#{idx + 1}: {question}__')
+
+                questionEmbed = Embed(bot=self.bot, title=f'__Question #{idx + 1}:__', description=f'    *{question}*', color=0xFF5733)
+                # questionEmbed.add_field(name=f'__Question #{idx + 1}:__', value=f'    *{question}*', inline=False)
+                await ctx.author.send(embed=questionEmbed)
+                
                 response = await self.bot.wait_for('message', check=lambda m: m.author == ctx.author and not m.guild)
                 answers.append(response.content)
 
-            embed = Embed(bot=self.bot, title='Oversight', color=0xFF5733)
+            answerEmbed = Embed(bot=self.bot, title='Oversight', color=0xFF5733)
             for (idx, question), answer in zip(enumerate(self.content['questions']), answers): 
-                embed.add_field(name=f'#{idx + 1}: {question}', value=f'    *{answer}*', inline=False)
+                answerEmbed.add_field(name=f'#{idx + 1}: {question}', value=f'    *{answer}*', inline=False)
             
-            await ctx.author.send(embed=embed)   
+            await ctx.author.send(embed=answerEmbed)   
             await ctx.author.send(f'Are these answers correct? **(y/n)**')
 
             message = await self.bot.wait_for('message', check=lambda m: m.author == ctx.author and not m.guild and (m.content == 'y' or m.content =='n' or m.content == 'yes' or m.content == 'no'))
@@ -50,10 +54,10 @@ class Commands(commands.Cog):
 
         """ Sends the user's application to the application channel. """
         # Reuse previous embed
-        embed.title = f'{ctx.author}\'s Application'
+        answerEmbed.title = f'{ctx.author}\'s Application'
         application_channel = get(ctx.guild.channels, name=self.application_channel)
         
-        application = await application_channel.send(embed=embed)
+        application = await application_channel.send(embed=answerEmbed)
         await application.add_reaction('\u2705')
         await application.add_reaction('\u274c')
             
