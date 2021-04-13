@@ -30,7 +30,7 @@ class Events(commands.Cog):
                 return await ctx.send('You attempted to make the command display more than 2,000 characters.\nBoth the error and the command will be ignored.')
 
             print(err)
-            await ctx.send(f'There was an error processing the command. {error}')
+            await ctx.send(f'There was an error processing the command. {err}')
         
         elif isinstance(err, errors.MaxConcurrencyReached):
             await ctx.send(f'You\'ve reached max capacity of command usage at once, please finish the previous one.')
