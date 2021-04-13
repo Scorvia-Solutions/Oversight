@@ -26,8 +26,6 @@ class Events(commands.Cog):
             await ctx.send_help(cmd)
 
         elif isinstance(err, errors.CommandInvokeError):
-            error = print('CommandInvokeError')
-
             if '2000 or fewer' in str(err) and len(ctx.message.clean_content) > 1900:
                 return await ctx.send('You attempted to make the command display more than 2,000 characters.\nBoth the error and the command will be ignored.')
 
