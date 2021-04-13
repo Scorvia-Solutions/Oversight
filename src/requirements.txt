@@ -6,3 +6,4 @@ rcon
 asyncio
 pyyaml
 pytz
+aio-mc-rcon
