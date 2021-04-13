@@ -39,7 +39,8 @@ class Commands(commands.Cog):
             await ctx.author.send(embed=embed)   
             await ctx.author.send(f'Are these answers correct? **(y/n)**')
 
-            satisfied = await self.bot.wait_for('message', check=lambda m: m.author == ctx.author and not m.guild and (m.content == 'y' or m.content =='n'))
+            message = await self.bot.wait_for('message', check=lambda m: m.author == ctx.author and not m.guild and (m.content == 'y' or m.content =='n'))
+            satisfied = message.content == 'y'
 
         await ctx.author.send(self.content['responses']['pending'])
 
