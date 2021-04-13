@@ -23,7 +23,7 @@ class Commands(commands.Cog):
     async def apply(self, ctx):
         satisfied = False
 
-        """ Asks the user the questions in content.yml through thier direct messages, and allows them to reanswer until satisfaction """
+        """ Asks the user the questions in content.yml through their direct messages, and allows them to re-answer until satisfaction """
         while not satisfied:
             answers = []
 
@@ -34,15 +34,15 @@ class Commands(commands.Cog):
 
             embed = Embed(bot=self.bot, title='Oversight', color=0xFF5733)
             for (idx, question), answer in zip(enumerate(self.content['questions']), answers): 
-                embed.add_field(name=f'#{idx + 1}: {question}', value=f'*{answer}*', inline=False)
+                embed.add_field(name=f'#{idx + 1}: {question}', value=f'    *{answer}*', inline=False)
             
             await ctx.author.send(embed=embed)   
             await ctx.author.send(f'Are these answers correct? **(y/n)**')
 
-            message = await self.bot.wait_for('message', check=lambda m: m.author == ctx.author and not m.guild and (m.content == 'y' or m.content =='n'))
-            satisfied = message.content == 'y'
+            message = await self.bot.wait_for('message', check=lambda m: m.author == ctx.author and not m.guild and (m.content == 'y' or m.content =='n' or m.content == 'yes' or m.content == 'no'))
+            satisfied = message.content == 'y' or message.content == 'yes'
 
-        await ctx.author.send(self.content['responses']['pending'])
+        await ctx.author.send(self.content['responses']['pending']) # sends message saying your response is pending review
 
         """ Sends the user's application to the application channel. """
         # Reuse previous embed
