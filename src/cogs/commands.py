@@ -42,13 +42,23 @@ class Commands(commands.Cog):
             satisfied = await self.bot.wait_for('message', check=lambda m: m.author == ctx.author and not m.guild and (m.content == 'y' or m.content =='n'))
 
         await ctx.author.send('Your application is being processed, please be patient.')
-        await self.send_to_applications(ctx.author, answers)
 
         """ Sends the user's application to the application channel. """
         # Reuse previous embed
         embed.title = f'{ctx.author}\'s Application'
         application_channel = get(ctx.guild.channels, name=self.application_channel)
-        await application_channel.send(embed=embed)
+        
+        application = await application_channel.send(embed=embed)
+        await application.add_reaction('\u2705')
+        await application.add_reaction('\u274c')
+            
+        reaction, _ = await self.bot.wait_for('reaction_add', check=lambda r, u: u != self.bot.user and (r.emoji == '\u2705' or r.emoji == '\u274c'))
+        accepted = True if reaction.emoji == '\u2705' else False
+
+        print(accepted)
+
+
+
 
 
 def setup(bot):
