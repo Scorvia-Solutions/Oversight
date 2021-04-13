@@ -41,7 +41,7 @@ class Commands(commands.Cog):
 
             satisfied = await self.bot.wait_for('message', check=lambda m: m.author == ctx.author and not m.guild and (m.content == 'y' or m.content =='n'))
 
-        await ctx.author.send('Your application is being processed, please be patient.')
+        await ctx.author.send(self.content['responses']['pending'])
 
         """ Sends the user's application to the application channel. """
         # Reuse previous embed
@@ -55,7 +55,14 @@ class Commands(commands.Cog):
         reaction, _ = await self.bot.wait_for('reaction_add', check=lambda r, u: u != self.bot.user and (r.emoji == '\u2705' or r.emoji == '\u274c'))
         accepted = True if reaction.emoji == '\u2705' else False
 
-        print(accepted)
+        if accepted:
+            """ Application accepted, add to whitelist. """
+
+            await ctx.author.send(self.content['responses']['accepted'])
+        else:
+            """ Application rejected, ? """
+
+            await ctx.author.send(self.content['responses']['rejected'])
 
 
 
