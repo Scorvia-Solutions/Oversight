@@ -13,6 +13,6 @@ Oversight is a Discord Bot written in Python that acts as a whitelisting solutio
 ## Features
 
 - Easy YML based configuration that allows you to add questions quickly and effectively
-- Minimal deploy time. Just run the main.py file and watch it go!
+- Minimal deploy time. Just configure .env then run main.py and watch it go!
 - Flexible Codebase! Modify the code to your needs
 - Completely self sufficent. Only requires the enabling of the RCON protocol in your Minecraft Server and the proper credentials. No plugin muss or fuss!
